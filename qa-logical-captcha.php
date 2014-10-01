@@ -32,6 +32,7 @@
 	class qa_logical_captcha {
 		const SAVE_BTN             = 'ami_lcap_save' ;
 		const API_KEY              = 'ami_lcap_api_key' ;
+		const SALT                 = 'ami_lcap_salt' ;
 		const CAPTCHA_ANSWER       = 'ami_lcap_answer' ;
 		const CAPTCHA_HIDDEN_FIELD = 'ami_lcap_answer_hidden[]' ;
 		const CAPTCHA_HIDDEN_NAME  = 'ami_lcap_answer_hidden' ;
@@ -52,6 +53,7 @@
 			
 			if (qa_clicked(self::SAVE_BTN)) {
 				qa_opt(self::API_KEY , qa_post_text(self::API_KEY));
+				qa_opt(self::SALT , qa_post_text(self::SALT));
 				$saved=true;
 			}
 
@@ -64,6 +66,13 @@
 						'label' => qa_lang_html('lcap/api_key'),
 						'value' => qa_opt(self::API_KEY),
 						'note' => qa_lang('lcap/get_the_api_key'),
+					),
+					self::SALT => array(
+						'type' => 'text',
+						'tags' => 'name="'.self::SALT.'"',
+						'label' => qa_lang_html('lcap/salt'),
+						'value' => qa_opt(self::SALT),
+						'note' => qa_lang('lcap/get_the_salt'),
 					),
 				),
 				'buttons' => array(
@@ -106,7 +115,7 @@
 				// if there is a problem, use static fallback..
 				$fallback = '<captcha>' .
 				'<question>Out of a rose, novel, dog, table, piano, or automobile, which is most likely to have teeth?</question>' .
-				'<answer>'.md5('dog').'</answer></captcha>';
+				'<answer>'.md5(md5('dog').self::SALT).'</answer></captcha>';
 				$xml = new SimpleXMLElement($fallback);
 			} // try
 
@@ -115,7 +124,7 @@
 			
 			foreach ($xml->answer as $hash)
 			{ 
-				$ans = (string) $hash;
+				$ans = (string) md5($hash.self::SALT);
 				$ans_hidden_field .= '<input type="hidden" value="'.$ans.'" name="'.self::CAPTCHA_HIDDEN_FIELD.'" />'.PHP_EOL ;
 			}
 
@@ -144,7 +153,7 @@
 			}
 
 			$user_answer = strtolower($user_answer); 
-			$user_answer = md5($user_answer) ;
+			$user_answer = md5(md5($user_answer).self::SALT) ;
 			
 			if (!in_array($user_answer, $hased_answer )){
 				// verification failed 
