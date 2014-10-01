@@ -23,6 +23,7 @@ The installation is pretty simple .
 - Place directory called `q2a-logical-captcha` in qa-plugin folder.
 - Get your TextRecaptcha API key after doing a quick registration here - http://textcaptcha.com/register
 - Navigate to Admin -> Plugins -> Q2A Logical Captcha , set your API key there 
+- Navigate to Admin -> Plugins -> Q2A Logical Captcha , set a Random String in the Salt field , which is adds additional security to your captcha . Any string is allowed for this field . 
 - Navigate to Admin -> Spam , Set the field `Use captcha module:` as **Q2A Logical Captcha**
 - Done
 
