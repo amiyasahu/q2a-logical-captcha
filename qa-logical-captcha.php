@@ -115,7 +115,7 @@
 				// if there is a problem, use static fallback..
 				$fallback = '<captcha>' .
 				'<question>Out of a rose, novel, dog, table, piano, or automobile, which is most likely to have teeth?</question>' .
-				'<answer>'.md5(md5('dog').self::SALT).'</answer></captcha>';
+				'<answer>'.md5(md5('dog').qa_opt(self::SALT)).'</answer></captcha>';
 				$xml = new SimpleXMLElement($fallback);
 			} // try
 
@@ -124,7 +124,7 @@
 			
 			foreach ($xml->answer as $hash)
 			{ 
-				$ans = (string) md5($hash.self::SALT);
+				$ans = (string) md5($hash.qa_opt(self::SALT));
 				$ans_hidden_field .= '<input type="hidden" value="'.$ans.'" name="'.self::CAPTCHA_HIDDEN_FIELD.'" />'.PHP_EOL ;
 			}
 
@@ -153,7 +153,7 @@
 			}
 
 			$user_answer = strtolower($user_answer); 
-			$user_answer = md5(md5($user_answer).self::SALT) ;
+			$user_answer = md5(md5($user_answer).qa_opt(self::SALT)) ;
 			
 			if (!in_array($user_answer, $hased_answer )){
 				// verification failed 
