@@ -29,8 +29,8 @@
 	Plugin Name: Q2A Logical Captcha
 	Plugin URI: https://github.com/amiyasahu/q2a-logical-captcha
 	Plugin Description: Protect bot action by adding simple logical questions to Q2A form.
-	Plugin Version: 1.0
-	Plugin Date: 2014-08-30
+	Plugin Version: 1.1
+	Plugin Date: 2014-10-2
 	Plugin Author: Amiya Sahu
 	Plugin Author URI: http://amiyasahu.com/
 	Plugin License: GPLv2
