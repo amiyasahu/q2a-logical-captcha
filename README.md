@@ -32,6 +32,10 @@ Disclaimer
 ----------
 It is probably okay for production environments, but may not work exactly as expected.  Refunds will not be given.  If it breaks, you get to keep both parts.
 
+Language Support
+-----------------
+You have the flexibility to change the language by adding a language file of your choice . But the questions will be always in English . No other language questions are supported as of now . 
+
 About q2A
 ---------
 Question2Answer is a free and open source platform for Q&A sites. For more information, visit:
